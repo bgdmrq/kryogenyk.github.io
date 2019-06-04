@@ -24,7 +24,7 @@ $(document).ready(function () {
         //console.log(div, dir, divs.length);
         $('html,body').stop().animate({
             scrollTop: divs.eq(div).offset().top
-        }, 500);
+        }, 750);
         return false;
     });
     $(window).resize(function () {
