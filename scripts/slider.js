@@ -1,26 +1,32 @@
-var slideIndex = 1;
-showSlides(slideIndex);
 
-function plusSlides(n) {
-  showSlides(slideIndex += n);
+
+function deleteImage(that) {
+  console.log("delete");
+  console.log(that);
+  that.parentElement.parentElement.remove();
 }
 
-function currentSlide(n) {
-  showSlides(slideIndex = n);
+
+
+function showButtons(that) {
+
+  console.log(that.parentElement.classList);
+  console.log(that.parentElement.getElementsByClassName("buttons"));
+
+  if (that.parentElement.classList.contains("active")) {
+    that.parentElement.getElementsByClassName("buttons")[0].classList.remove("buttons-active");
+    that.parentElement.classList.remove("active");
+  }
+  else {    
+    that.parentElement.classList.add("active");
+    that.parentElement.getElementsByClassName("buttons")[0].classList.add("buttons-active");
+  }
+
 }
 
-function showSlides(n) {
-  var i;
-  var slides = document.getElementsByClassName("mySlides");
-  var dots = document.getElementsByClassName("dot");
-  if (n > slides.length) {slideIndex = 1}
-    if (n < 1) {slideIndex = slides.length}
-    for (i = 0; i < slides.length; i++) {
-      slides[i].style.display = "none";
-    }
-    for (i = 0; i < dots.length; i++) {
-      dots[i].className = dots[i].className.replace(" active", "");
-    }
-  slides[slideIndex-1].style.display = "block";
-  dots[slideIndex-1].className += " active";
-} 
+function editImage(that) {
+  
+
+
+
+}
