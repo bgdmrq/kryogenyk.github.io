@@ -5,7 +5,6 @@
 }
 
 body {
-    /* background-color: #73716d; */
     position: absolute;
     margin: 0;
     width: 100%;
@@ -89,6 +88,7 @@ td{
     right: 0px;
     opacity: 0;
     transition: all 0.5s ease-out;
+    box-shadow: 2px 4px 8px 2px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .buttons.buttons-active {
@@ -101,17 +101,45 @@ td{
     position: absolute;
     right: 0;
     top: 0;
-    width: 24px;
-    height: 24px;
+    width: 32px;
+    height: 32px;
     border: none;
+    
+}
+
+.src-label{
+    box-shadow: 2px 4px 8px 2px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 5%;
+    font-size: 50%;
 }
 
 .edit-image {
     background: url("../images/edit.png");
     position: absolute;
     right: 0;
-    top: 24px;
-    width: 24px;
-    height: 24px;
+    top: 32px;
+    width: 32px;
+    height: 32px;
+    border: none;
+    transition: all 0.5s ease-out;
+}
+
+.edit-label{
+    position: absolute;
+    top:18px;
+    right: 38px;
+    opacity: 0;
+    transition: all 0.5s ;    
+}
+
+.edit-label.edit-label-active{
+    opacity: 1;
+    right: 38px;   
+}
+
+.add-button{
+    background: url("../images/plus.png");
+    width: 64px;
+    height: 64px;
     border: none;
 }

@@ -1,0 +1,36 @@
+o functie de hide/show la o imagine pe baza indexului
+
+pagination inputs
+- numarul total de elemente
+- numarul de elems. afisate pe o pagina
+pagination in-memody info
+- numarul pagini curent
+
+15 elem, 3 pe pag -> 5 pagini
+pag 2 -> pag 3
+- indexul paginii noi = 2 
+- vrei sa afisezi 7,8,9
+
+_________________________________
+A. non-pagination related
+1. stocat array cu srcs + isShown (bool, positiv initial la toate)
+2. metode adaugare si stergere din array
+2.1. metoda creare tabel -> returneaza refereinta aruncata de doc.createElmem(whateva)
+2.2. metoda stergere table
+2.5. metoda de adaugare a unui singur element 
++ adaugare event listener din js pentru fiecare element randat
+3. metoda de randare a elem din arr care sunt isShown
+	- sterge continutul vechi, adauga fiecare imagine
+
+B. pagination
+1. stoachezi pagina activa (ca index 0) initial
+2. metoda de accesarePagina (//o sia aplezi pt. index-ul 0 la inceput), care
+- seteaza proprietatile isShown pentru pagina x, si false pentru restul\
+- apeleaza render() la final
+3. sincronizare pagina activa la stergere si adaugare de elemente
+
+utils: nr de elem pe pagina activa 
+
+
+__________________________________
+structurare pe mai multe fisiere js + controller pattern
