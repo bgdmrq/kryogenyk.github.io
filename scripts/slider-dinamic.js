@@ -56,7 +56,7 @@ function changeSource(e, elem) {
 
     if (e.keyCode == 13 && e.which == 13) {
         e.srcElement.parentElement.parentElement.getElementsByClassName("image")[0].src = e.srcElement.value;
-        tableData[parseInt(e.srcElement.parentElement.parentElement.id.substring(5))] = {'src': e.srcElement.value, isShown: true };
+        tableData[parseInt(e.srcElement.parentElement.parentElement.id.substring(5)) + currentPage * numberOfElemnets] = {'src': e.srcElement.value, isShown: true };
         console.log(tableData);
         e.srcElement.value = "";
         e.srcElement.parentElement.parentElement.classList.remove("active");
