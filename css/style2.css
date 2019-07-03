@@ -2,6 +2,7 @@
     font-family: 'Amatic SC', cursive;
     cursor: url('../misc/cursor.cur'), auto;
     scroll-behavior: smooth;
+    text-align: center;
 }
 
 body {
@@ -13,13 +14,12 @@ body {
 
 h1 {
     margin-block-start: 0 !important;
+    margin-bottom: 0;
 }
 
 h2 {
     margin-block-start: 0 !important;
 }
-
-
 
 .wrapper {
     width: 100%;
@@ -34,7 +34,8 @@ h2 {
     background-repeat: no-repeat;
     background-size: cover;
 }
-.scrolldiv{
+
+.scrolldiv {
     height: 100%;
 }
 
@@ -59,10 +60,17 @@ nav {
 
 .table-title {
     text-align: center;
+    align-content: center;
+    width: 100%;
+    display: inline block;
+    font-size: 200%;
+    background: #6D4621;
+    color: white;
 }
 
 .table {
     align-content: center;
+    /* width: 100%; */
     font-size: 300%;
     background: #6D4621;
     color: lightgrey;
@@ -75,9 +83,7 @@ nav {
     box-shadow: 2px 4px 8px 2px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-
-
-td{
+td {
     position: relative;
     width: 32%;
 }
@@ -104,10 +110,9 @@ td{
     width: 32px;
     height: 32px;
     border: none;
-    
 }
 
-.src-label{
+.src-label {
     box-shadow: 2px 4px 8px 2px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     border-radius: 5%;
     font-size: 50%;
@@ -124,22 +129,58 @@ td{
     transition: all 0.5s ease-out;
 }
 
-.edit-label{
+.edit-label {
     position: absolute;
-    top:18px;
+    top: 18px;
     right: 38px;
     opacity: 0;
-    transition: all 0.5s ;    
+    transition: all 0.5s;
 }
 
-.edit-label.edit-label-active{
+.edit-label.edit-label-active {
     opacity: 1;
-    right: 38px;   
+    right: 38px;
 }
 
-.add-button{
+.add-button {
     background: url("../images/plus.png");
     width: 64px;
     height: 64px;
     border: none;
+    display: inline-flex;
+    position: relative;
+    top: 10px;
+}
+
+.add-image-label {
+    font-size: 100%;
+    opacity: 0;
+    /* margin-left: 70px; */
+    transition: all 0.5s;
+    margin-bottom: 20px;
+}
+
+.add-image-label.add-image-label-active {
+    opacity: 1;
+    transition: all 0.5s;
+}
+
+#catsTable {
+    font-size: 100%;
+}
+
+.page-buttons-container {
+    background: #6D4621;
+}
+
+.page-button {
+    text-align: center;
+    font-size: 150%;
+    color: black;
+    width: 48px;
+    height: 48px;
+    border: none;
+    text-align: center;
+    margin: 4px 2px;
+    border-radius: 24px;
 }

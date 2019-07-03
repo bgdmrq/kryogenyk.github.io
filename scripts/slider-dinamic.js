@@ -1,188 +1,267 @@
 const numberOfElemnets = 6;
-var tableData =
-    [{ 'src': './images/table-images/1.jpg', isShown: true },
-    { 'src': './images/table-images/2.jpg', isShown: true },
-    { 'src': './images/table-images/3.jpg', isShown: true },
-    { 'src': './images/table-images/4.jpg', isShown: true },
-    { 'src': './images/table-images/5.jpg', isShown: true },
-    { 'src': './images/table-images/6.jpg', isShown: true },
-    { 'src': './images/table-images/7.jpg', isShown: true },
-    { 'src': './images/table-images/8.jpg', isShown: true },
-    { 'src': './images/table-images/9.jpg', isShown: true },
-    { 'src': './images/table-images/10.jpg', isShown: true },
-    { 'src': './images/table-images/11.jpg', isShown: true },
-    { 'src': './images/table-images/12.jpg', isShown: true }];
-
-//initializing table
-function initTable(data) {
-    //create table
-    var table = document.createElement("table");
-    table.className = "table";
-
-    //create title
-    var title = document.createElement("tr");
-    title.className = "table-title";
-    var th = document.createElement("th");
-    th.colSpan = 3;
-    th.textContent = "Galeria cu pisici";
-    title.appendChild(th);
-    table.appendChild(title);
-
-    //create table body
-    var tbody = document.createElement("tbody");
-
-    console.log(data.length);
-    console.log(data[0].src);
-
-    for (var i = 0; i < data.length; i = i + 3) {
-        var tr = document.createElement("tr");
-        tr.className = "table-title";
-        var td = document.createElement("td");
-        var card = document.createElement("div");
-        var image = document.createElement("img");
-        var image2 = document.createElement("img");
-        var image3 = document.createElement("img");
-
-        card.className = "card";
-        image.className = "image";
-
-        image.src = data[i].src;
-        if (i + 1 < data.length)
-            image2.src = data[i + 1].src;
-        if (i + 2 < data.length)
-            image3.src = data[i + 2].src;
-
-        
-        //td.appendChild()
-
-
-    }
-
-    //tre sa le bage cate 3. gotta fix dis.
-    //populate table
-    data.forEach(element => {
-
-        var tr = document.createElement("tr");
-        tr.className = "table-title";
-        var td = document.createElement("td");
-        var card = document.createElement("div");
-        var image = document.createElement("img");
-        var buttons = document.createElement("div");
-        var edit_label = document.createElement("div");
-        var edit_image = document.createElement("button");
-        var delete_image = document.createElement("button");
-        var src_label = document.createElement("input");
-
-        card.className = "card";
-        image.className = "image";
-        buttons.className = "buttons";
-        edit_image.className = "edit-image";
-        delete_image.className = "delete-image";
-        edit_label.className = "edit-label";
-        src_label.type = "text";
-        src_label.id = "src";
-        src_label.name = "src";
-        src_label.placeholder = "new source";
-
-        buttons.appendChild(edit_image);
-        buttons.appendChild(delete_image);
-        card.appendChild(buttons);
-        card.appendChild(image);
-        card.appendChild(edit_label);
-        image.src = element['src'];
-
-        td.appendChild(card);
-        tr.appendChild(td);
-        tbody.appendChild(tr);
-    });
-    table.appendChild(tbody);
-    return table;
-
-}
+var pageNumber = 0;
+var currentPage = 0;
+var tableData = [
+    { 'src': './images/table-images/1.jpg', isShown: false },
+    { 'src': './images/table-images/2.jpg', isShown: false },
+    { 'src': './images/table-images/3.jpg', isShown: false },
+    { 'src': './images/table-images/4.jpg', isShown: false },
+    { 'src': './images/table-images/5.jpg', isShown: false },
+    { 'src': './images/table-images/6.jpg', isShown: false },
+    { 'src': './images/table-images/7.jpg', isShown: false },
+    { 'src': './images/table-images/8.jpg', isShown: false },
+    { 'src': './images/table-images/9.jpg', isShown: false },
+    { 'src': './images/table-images/10.jpg', isShown: false },
+    { 'src': './images/table-images/11.jpg', isShown: false },
+    { 'src': './images/table-images/12.jpg', isShown: false }
+];
 
 window.onload = function () {
-
-    document.getElementsByClassName("wrapper")[0].appendChild(initTable(tableData));
+    var container = document.getElementsByClassName("wrapper")[0];
+    var tableContainer = document.createElement("div");
+    tableContainer.className = "table";
+    tableContainer.id = "catsWrapper";
+    container.appendChild(tableContainer);
+    renderTableContent(tableContainer, tableData, 0);
 }
-
-function initButtons() {
-    //nr total shituri
-    // aflat cate butoane trebe
-    //facut butoane
-}
-// initTable();
-initButtons();
-
-
-
 
 
 //buttons functionalities
+function deleteImage(element) {
 
-function deleteImage(that) {
-    if (that.parentElement.classList.contains("buttons-active"))
-        that.parentElement.parentElement.parentElement.remove();
-    console.log(that.parentElement.classList);
-}
-
-function showButtons(that) {
-
-    if (that.parentElement.classList.contains("active")) {
-        that.parentElement.getElementsByClassName("buttons")[0].classList.remove("buttons-active");
-        that.parentElement.classList.remove("active");
-        that.parentElement.parentElement.getElementsByClassName("edit-label")[0].classList.remove("edit-label-active");
-    }
-    else {
-        that.parentElement.classList.add("active");
-        that.parentElement.getElementsByClassName("buttons")[0].classList.add("buttons-active");
-    }
+    var elementId = element.id;
+    var index = parseInt(elementId.substring(5));
+    tableData.splice(parseInt(currentPage * 6 + index), 1);
+    var catsContainer = document.getElementById("catsWrapper");
+    console.log("pagina curenta cand dau delete: " + currentPage);
+    console.log("indexul pizdii: " + index);
+    console.log("nrumarul pizdii: " + parseInt(currentPage * 6 + index));
+    renderTableContent(catsContainer, tableData, currentPage);
 
 }
 
-function changeSource(e, that) {
+//functionalitate buton edit image
+function editImage(element) {
+    if (element.getElementsByClassName("edit-label")[0].classList.contains("edit-label-active"))
+        element.getElementsByClassName("edit-label")[0].classList.remove("edit-label-active");
+    else element.getElementsByClassName("edit-label")[0].classList.add("edit-label-active");
+    if (!element.classList.contains("active"))
+        element.getElementsByClassName("edit-label")[0].classList.remove("edit-label-active");
+
+}
+
+//change the source of the image
+function changeSource(e, elem) {
+    
 
     if (e.keyCode == 13 && e.which == 13) {
-        if (that.value != null) {
-            that.parentElement.parentElement.getElementsByClassName("image")[0].src = that.value;
-            that.parentElement.parentElement.getElementsByClassName("buttons")[0].classList.remove("buttons-active");
-            that.
-                that.blur();
-            dispariInPizdaMatii();
-        }
+        e.srcElement.parentElement.parentElement.getElementsByClassName("image")[0].src = e.srcElement.value;
+        tableData[parseInt(e.srcElement.parentElement.parentElement.id.substring(5))] = {'src': e.srcElement.value, isShown: true };
+        console.log(tableData);
+        e.srcElement.value = "";
+        e.srcElement.parentElement.parentElement.classList.remove("active");
+        e.srcElement.parentElement.parentElement.getElementsByClassName("buttons")[0].classList.remove("buttons-active");
+        e.srcElement.parentElement.parentElement.getElementsByClassName("edit-label")[0].classList.remove("edit-label-active");
+        
+        
     }
-
 }
 
-function dispariInPizdaMatii() {
-    that.parentElement.parentElement.getElementsByClassName("edit-label")[0].classList.remove("edit-label-active");
-}
-
-
-function editImage(that) {
-
-    if (that.parentElement.parentElement.getElementsByClassName("edit-label")[0].classList.contains("edit-label-active")) {
-        that.parentElement.parentElement.getElementsByClassName("edit-label")[0].classList.remove("edit-label-active");
-
+//add-image-label display
+function showAddImageLabel(that) {
+    if (!that.classList.contains("add-button-active")) {
+        that.classList.add("add-button-active");
+        that.parentElement.parentElement.getElementsByClassName("add-image-label")[0].classList.add("add-image-label-active");
     }
     else {
-        that.parentElement.parentElement.getElementsByClassName("edit-label")[0].classList.add("edit-label-active");
+        that.classList.remove("add-button-active");
+        that.parentElement.parentElement.getElementsByClassName("add-image-label")[0].classList.remove("add-image-label-active");
+    }
+}
 
+//push pe array la o pozik noua,, la final
+function addImage(e, that) {
+
+    var catsContainer = document.getElementById("catsWrapper");
+    
+
+    if (e.keyCode == 13 && e.which == 13) {
+        var imToAdd =
+            tableData.push({ 'src': that.value, isShown: false });
+        console.log("in add function:");
+        console.log(tableData);
+        that.value = "";
+        document.getElementsByClassName("add-button")[0].classList.remove("add-button-active");
+        document.getElementsByClassName("add-image-label")[0].classList.remove("add-image-label-active");
+        renderTableContent(catsContainer, tableData, 0);
+    }
+}
+
+//page buttons + click listener for them
+function renderPageButtons() {
+    var container = document.getElementsByClassName("wrapper")[0];
+    var pageButtonsContainer = document.getElementsByClassName("page-buttons-container")[0];
+
+    if (pageButtonsContainer != undefined) {
+        pageButtonsContainer.parentElement.removeChild(pageButtonsContainer);
     }
 
-    if (!that.parentElement.classList.contains("buttons-active"))
-        that.parentElement.parentElement.getElementsByClassName("edit-label")[0].classList.remove("edit-label-active");
+    pageButtonsContainer = document.createElement("div");
+    pageButtonsContainer.className = "page-buttons-container";
 
+    var nrOfPages = parseInt(tableData.length / numberOfElemnets);
 
-    console.log(that.parentElement.parentElement.getElementsByClassName("edit-label")[0].classList);
-    // var = that.parentElement.parentElement.getElementsByClassName("edit-label")[0].firstChild;
-    console.log(that.parentElement.parentElement.getElementsByClassName("edit-label")[0].firstChild);
+    if (tableData.length % numberOfElemnets > 0) {
+        nrOfPages++;
+    }
 
+    for (var i = 0; i < nrOfPages; i++) {
+        let aux = document.createElement("button");
+        aux.className = "page-button";
+        aux.innerText = i;
 
+        aux.addEventListener("click", function () {
+            var catsContainer = document.getElementById("catsWrapper");
+            currentPage = aux.innerText;
+            console.log(tableData);
+            renderTableContent(catsContainer, tableData, aux.innerText);
+        });
+
+        pageButtonsContainer.appendChild(aux);
+    }
+
+    container.appendChild(pageButtonsContainer);
 }
 
-// fa-o candva 
-function addImage(that) {
 
+//rendering of a card element
+function renderCardElement(container, data, id) {
+    if (data == undefined || !data.hasOwnProperty('src') || !data.hasOwnProperty('isShown')) {
+        throw new Error("unsupported input format")
+    }
+    var card = document.createElement("div");
+    var image = document.createElement("img");
+    var buttonsContainer = document.createElement("div");
+    var editLabel = document.createElement("div");
+    var editImageButton = document.createElement("button");
+    var deleteImageButton = document.createElement("button");
+    var srcLabel = document.createElement("input");
+
+
+
+    card.className = "card";
+    card.id = "card_" + id;
+    image.className = "image";
+    buttonsContainer.className = "buttons";
+    editImageButton.className = "edit-image";
+    deleteImageButton.className = "delete-image";
+    editLabel.className = "edit-label";
+    srcLabel.className = "src-label";
+    srcLabel.type = "text";
+    srcLabel.id = "src";
+    srcLabel.name = "src";
+    srcLabel.placeholder = "new source";
+    srcLabel.onkeypress = function (e, srcLabel) {
+        changeSource(e, srcLabel);
+    }
+
+    buttonsContainer.appendChild(deleteImageButton);
+    buttonsContainer.appendChild(editImageButton);
+    editLabel.appendChild(srcLabel);
+    card.appendChild(image);
+    card.appendChild(buttonsContainer);
+    card.appendChild(editLabel);
+    image.src = data["src"];
+
+
+    image.addEventListener("click", function ($event) {
+
+
+        if ($event.target.parentElement.getElementsByClassName("buttons")[0].classList.contains("buttons-active"))
+            $event.target.parentElement.getElementsByClassName("buttons")[0].classList.remove("buttons-active");
+        else $event.target.parentElement.getElementsByClassName("buttons")[0].classList.add("buttons-active")
+
+
+
+        if ($event.target.parentElement.classList.contains("active")) {
+            $event.target.parentElement.classList.remove("active");
+            editImage($event.target.parentElement);
+
+        }
+        else {
+            $event.target.parentElement.classList.add("active");
+
+        }
+    });
+
+    deleteImageButton.addEventListener("click", function ($event) {
+
+        deleteImage($event.target.parentElement.parentElement);
+    });
+
+    editImageButton.addEventListener("click", function ($event) {
+
+        editImage($event.target.parentElement.parentElement)
+    })
+
+    container.appendChild(card);
 }
+
+function renderTableContent(container, data, pageNumber) {
+    var startIndex = (pageNumber) * numberOfElemnets;
+    var requiredElemsForThisPage = pageNumber == 0 ? 0 : startIndex + 1;
+    var endIndex = (parseInt(pageNumber) + 1) * numberOfElemnets - 1;
+
+    if (data.length < requiredElemsForThisPage) {
+        throw new Error("invalid page number: " + pageNumber + " ,total number of elements: " + data.length);
+    }
+
+    tableData.forEach((it) => it.isShown = false);
+   
+    
+    for (var i = startIndex; i <= endIndex && i < data.length; i++) {
+        data[i].isShown = true;
+    }
+    
+    var table = document.getElementById("catsTable");
+    if (table != undefined) {
+        table.parentElement.removeChild(table);
+    }
+
+    table = document.createElement("table");
+    table.id = "catsTable";
+    table.className = "table";
+    table.align = "center";
+
+    var tbody = document.createElement("tbody");
+    var shownData = data.filter((it) => it.isShown);
+    addTableContent(tbody, shownData);
+    table.appendChild(tbody);
+    container.appendChild(table);
+    renderPageButtons();
+}
+
+//add content w/ isShown true to table
+function addTableContent(tbody, shownData, itemsPerRow = 3) {
+    var nrOfRows = parseInt(shownData.length / itemsPerRow);
+    if (shownData.length % itemsPerRow != 0) nrOfRows++;
+
+    //create table elements
+    for (var i = 0; i < nrOfRows; i++) {
+        var tr = document.createElement("tr");
+        for (var j = 0; j < itemsPerRow; j++) {
+            var actualIndex = i * itemsPerRow + j;
+            if (actualIndex >= shownData.length) break;
+            var td = document.createElement("td");
+
+            renderCardElement(td, shownData[actualIndex], actualIndex);
+
+            tr.appendChild(td);
+        }
+        tbody.appendChild(tr);
+    }
+}
+
+
 
 
